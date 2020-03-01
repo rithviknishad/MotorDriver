@@ -4,26 +4,36 @@
  *  
  *  Description:    Motor Driver Library
  * 
- *  Chipsets:       L298 H Bridge / Full Bridge
+ *  L298 H Bridge
  * 
  *  Author:         Rithvik Nishad (https://github.com/rithviknishad)
- *  Created on:     October 7, 2019 [20:49 IST]
- *  Last Updated:   October 7, 2019 [21:30 IST]
+ *  Created on:     October 7, 2019
  * 
  */
 
+#ifndef __motor_driver_h
+#define __motor_driver_h
+
+#define STANDBY     0
+#define FORAWRD     (1 << 0)
+#define BACKWARD    (1 << 1)
+#define BRAKE       ((1 << 0) | (1 << 1))
+
+#define SUPERFAST   255
+#define FAST        200
+#define NORMAL      150
+#define SLOW        80
+#define SUPERSLOW   40
+
 class Motor
 {
-    private:
-
-    int pin_IN1, pin_IN2, pin_EN;
+    uint8_t PIN_IN1, PIN_IN2, PIN_EN;
 
     public:
 
-    void Initialize(int ina, int inb, int en);
+    Motor(uint8_t in1, uint8_t in2, uint8_t en);
 
-    Motor(int in1, int in2, int en);
-    Motor(Motor & motor);
-
-    void set(int speed);
+    void move(uint8_t direction = FORAWRD, uint8_t speed = 255);
 };
+
+#endif

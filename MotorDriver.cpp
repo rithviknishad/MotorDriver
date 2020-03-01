@@ -1,37 +1,23 @@
-#include <Arduino.h>
 #include "MotorDriver.h"
 
-void MotorDriver::Initialize(int ina, int inb, int en)
+Motor::Motor(uint8_t ina, uint8_t inb, uint8_t en)
 {
-    pin_IN1 = ina;
-    pin_IN2 = inb;
-    pin_EN = en;
+    PIN_IN1 = ina;
+    PIN_IN2 = inb;
+    PIN_EN = en;
 
-    pinMode(pin_IN1, OUTPUT);
-    pinMode(pin_IN2, OUTPUT);
-    pinMode(pin_EN, OUTPUT);
+    pinMode( PIN_IN1, OUTPUT);
+    pinMode( PIN_IN2, OUTPUT);
+    pinMode( PIN_EN,  OUTPUT);
 
-    digitalWrite(pin_IN1, 0);
-    digitalWrite(pin_IN2, 0);
+    digitalWrite(PIN_IN1, 0);
+    digitalWrite(PIN_IN2, 0);
+    digitalWrite(PIN_EN,  0);
 }
 
-Motor::Motor(int ina, int inb, int en)
+void Motor::move(uint8_t direction, uint8_t speed)
 {
-    Initialize(ina, inb, en);
-}
-
-Motor::Motor(Motor & motor)
-{
-    Initialize(motor.pin_IN1, motor.pin_IN2, motor.pin_EN);
-}
-
-void Motor::set(int speed)
-{
-    digitalWrite(pin_IN1, speed >= 0);
-    digitalWrite(pin_IN2, speed <= 0);
-
-    if (speed < 0)
-        speed *= -1;
-
-    analogWrite(pin_EN, (speed > 255) ? 255 : speed);    
+    digitalWrite(PIN_IN1, direction & (1 << 0));
+    digitalWrite(PIN_IN2, direction & (1 << 1));
+    analogWrite(PIN_EN, (speed > 255) ? 255 : speed);    
 }
