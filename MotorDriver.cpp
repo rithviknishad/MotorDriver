@@ -6,9 +6,9 @@ Motor::Motor(uint8_t ina, uint8_t inb, uint8_t en)
     PIN_IN2 = inb;
     PIN_EN = en;
 
-    pinMode( PIN_IN1, OUTPUT);
-    pinMode( PIN_IN2, OUTPUT);
-    pinMode( PIN_EN,  OUTPUT);
+    pinMode(PIN_IN1, OUTPUT);
+    pinMode(PIN_IN2, OUTPUT);
+    pinMode(PIN_EN,  OUTPUT);
 
     digitalWrite(PIN_IN1, 0);
     digitalWrite(PIN_IN2, 0);
